@@ -6,15 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,35 +19,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.exlistview.R;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.KeyListener;
-import android.text.style.ClickableSpan;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.exlistview.R;
 
 public class ShoppingListActivity extends Activity {
 
@@ -60,21 +47,19 @@ public class ShoppingListActivity extends Activity {
 	private static final String PRODUCT_NAME = "name";
 	private static final String PRODUCT_PRICE = "price";
 
-	List<Map<String, String>> groupData = new ArrayList<Map<String, String>>();
-	List<List<Map<String, String>>> childDataList = new ArrayList<List<Map<String, String>>>();
-	List<List<String>> childata = new ArrayList<List<String>>();
+	private List<Map<String, String>> groupData = new ArrayList<Map<String, String>>();
+	private List<List<Map<String, String>>> childDataList = new ArrayList<List<Map<String, String>>>();
+	private List<List<String>> childata = new ArrayList<List<String>>();
 	MyExpandableListAdapter myExpandableListAdapter;
 	ExpandableListView myExpandableListView;
-
-	private TextView displayText;
-	private EditText editDisplayText;
 
 	// Add store name in here
 	private static final String[] storeName = { "Superstore", "Walmart",
 			"Sobeys", "Safeway" };
 	// dataBase url or path
-	String fname = "/mnt/sdcard/test/json.txt";
-	String newData = "";
+	//String fname = "/mnt/sdcard/test/json.txt";
+	String fname = "json.txt";
+	String initData ="";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -95,10 +80,18 @@ public class ShoppingListActivity extends Activity {
 			storeMap.put(GROUP_TEXT, storeName[i]);
 			groupData.add(storeMap);
 		}
+		
+		//initDatafromAssetsToInternal();
+		try {
+			rewriteJsonFile(readJsonFile(fname));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// parse json file
 		childDataList = jsonParse(fname);
 		// on-Click : Group and Child
-		myExpandableListView
-				.setOnGroupClickListener(new OnGroupClickListener() {
+		myExpandableListView.setOnGroupClickListener(new OnGroupClickListener() {
 					@Override
 					public boolean onGroupClick(ExpandableListView parent,
 							View v, int groupPosition, long id) {
@@ -108,8 +101,7 @@ public class ShoppingListActivity extends Activity {
 					}
 				});
 
-		myExpandableListView
-				.setOnChildClickListener(new OnChildClickListener() {
+		myExpandableListView.setOnChildClickListener(new OnChildClickListener() {
 					@Override
 					public boolean onChildClick(ExpandableListView parent,
 							View v, int groupPosition, int childPosition,
@@ -122,17 +114,59 @@ public class ShoppingListActivity extends Activity {
 
 	}
 
+	public void initDatafromAssetsToInternal(){
+		// write content to internal storage
+		try {
+			rewriteJsonFile(readJsonFile(fname));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public String readJsonFile(String fname) {
-
 		/*
 		 * Check fname path right / exist or not Add code at here
 		 */
 		StringBuilder stringBuilder = new StringBuilder();
 		try {
-			InputStreamReader inputStreamReader = new InputStreamReader(
-					new FileInputStream(fname), "UTF-8");
-			BufferedReader bufferedReader = new BufferedReader(
-					inputStreamReader);
+			// Read from assets folder
+			InputStreamReader inputInternalReader = new InputStreamReader(
+					getAssets().open(fname), "UTF-8");
+			
+			BufferedReader bufferedReader = new BufferedReader(inputInternalReader);
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				stringBuilder.append(line);
+			}
+			bufferedReader.close();
+			inputInternalReader.close();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return stringBuilder.toString();
+	}
+	
+	// read from internal storage 
+	public String readJsonFile2(String fname) {
+
+		/*
+		 * Check fname path right / exist or not Add code at here
+		 */
+		//internal storage path
+		String path=getApplicationContext().getFilesDir().getAbsolutePath();
+		File myFile = new File(path+File.separator+fname);
+		
+		if(!myFile.exists()){
+			Log.e("ShoppingAssistance", "File does not exist!");
+			return null;
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		try {
+			// Read from external storage
+			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(myFile), "UTF-8");		
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				stringBuilder.append(line);
@@ -144,6 +178,7 @@ public class ShoppingListActivity extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return stringBuilder.toString();
 	}
 
@@ -151,7 +186,7 @@ public class ShoppingListActivity extends Activity {
 			int groupPosition, int childPosition) throws JSONException,
 			IOException {
 
-		JSONObject jsonGroupObject = new JSONObject(readJsonFile(fname));
+		JSONObject jsonGroupObject = new JSONObject(readJsonFile2(fname));
 		JSONObject jsonStore = jsonGroupObject.getJSONObject("storeName");
 
 		// according to the position of current item, update the content.
@@ -161,76 +196,37 @@ public class ShoppingListActivity extends Activity {
 
 		item.put(PRODUCT_NAME, newdatajson);
 
-		// System.out.println("==jsonStore===" + jsonGroupObject.toString());
-		writeFile(jsonGroupObject.toString());
+		//System.out.println("rewriteJsonFile==="+jsonGroupObject.toString());
 		return jsonGroupObject.toString();
 	}
 
-	public boolean writeFile(String content) throws IOException {
+	// write content to internal storage
+	public boolean rewriteJsonFile(String content) throws IOException {
 
-		String sdStatus = Environment.getExternalStorageState();
-		if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(getApplicationContext(), "SD 卡不可用",
-					Toast.LENGTH_SHORT).show();
-			return false;
+		//String path=getApplicationContext().getPackageResourcePath();
+		String path = getApplicationContext().getFilesDir().getAbsolutePath();
+		File myFile = new File(path+File.separator+fname);
+		if(!myFile.exists()){
+			myFile.createNewFile();
 		}
+		OutputStream output = new FileOutputStream(myFile);
+		OutputStreamWriter outwrite = new OutputStreamWriter(output, "utf-8");
+		BufferedWriter bufferw = new BufferedWriter(outwrite);
+		bufferw.write(content);
+		
+		bufferw.close();
+		outwrite.close();
+		output.close();
 
-		// 打开文件
-		// File myFile = new File(SDFile.getAbsolutePath() + File.separator +
-		// "MyFile.txt");
-		File myFile = new File(fname);
-		System.out.println(myFile);
-		BufferedWriter bufferw = null;
-		OutputStream output = null;
-		OutputStreamWriter outwrite = null;
-
-		try {
-			output = new FileOutputStream(myFile);
-			outwrite = new OutputStreamWriter(output, "utf-8");
-			bufferw = new BufferedWriter(outwrite);
-			bufferw.write(content);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (bufferw != null) {
-				try {
-					bufferw.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (outwrite != null) {
-				try {
-					outwrite.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (output != null) {
-				try {
-					output.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
 		return true;
-	}
-
-	public String rewriteJsonFile(String fname, int groupPosition,
-			int childPosition) {
-
-		StringBuilder stringBuilder = new StringBuilder();
-
-		return stringBuilder.toString();
 	}
 
 	// get data from json file, and store them into list
 	public List<List<Map<String, String>>> jsonParse(String fname) {
 		List<List<Map<String, String>>> childData = new ArrayList<List<Map<String, String>>>();
 		try {
-			JSONObject jsonGroupObject = new JSONObject(readJsonFile(fname));
+	
+			JSONObject jsonGroupObject = new JSONObject(readJsonFile2(fname));
 			JSONObject jsonObject = jsonGroupObject.getJSONObject("storeName");
 
 			for (int i = 0; i < jsonObject.length(); i++) {
@@ -313,50 +309,68 @@ public class ShoppingListActivity extends Activity {
 			}
 
 			/*
-			 * ImageView childImageView = (ImageView)
-			 * convertView.findViewById(R.id.child_header); if (childPosition ==
-			 * 0) {} childImageView.setImageResource(R.drawable.banana);
+			 ImageView childImageView = (ImageView)convertView.findViewById(R.id.child_header); 
+			 if (childPosition == 0) {
+			 	childImageView.setImageResource(R.drawable.banana);
+			 } 			 
 			 */
 
 			// display name & price
 			TextView childTextView1 = (TextView) convertView
 					.findViewById(R.id.child_text1);
-			displayText = (TextView) convertView.findViewById(R.id.displayText);
-			editDisplayText = (EditText) convertView
+			final TextView displayText = (TextView) convertView.findViewById(R.id.displayText);
+			final EditText editDisplayText = (EditText) convertView
 					.findViewById(R.id.editDisplay);
 
-			displayText.setText(getChildName(groupPosition, childPosition)
-					.toString());
 
+			displayText.setText(getChildName(groupPosition, childPosition).toString());
 			displayText.setVisibility(View.VISIBLE);
 			editDisplayText.setVisibility(View.INVISIBLE);
-			
-			
-			
-			
-			
-			displayText.setOnClickListener(new OnClickListener() {
 
-				String data="";
+			displayText.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
-					
-					updateContent(groupPosition, childPosition);
-	
+
+//					Intent intent = new Intent(Intent.ACTION_EDIT);		
+//					startActivity(intent);				
+					try {
+						String content = updateJsonFile(fname, "apple", groupPosition, childPosition);
+						// System.out.println("==jsonStore===" + jsonGroupObject.toString());
+						rewriteJsonFile(content);
+						childDataList = jsonParse(fname);	
+						
+						System.out.println(childDataList.get(groupPosition).get(childPosition).get(PRODUCT_NAME)
+								.toString());
+						displayText.setText(childDataList.get(groupPosition).get(childPosition).get(PRODUCT_NAME)
+								.toString());
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
-			//System.out.println(displayText.getText().toString());
+
+			//System.out.println(childDataList.get(groupPosition).get(childPosition).get(PRODUCT_NAME)
+			//.toString());
 			
+			childTextView1.setText(getChildName(groupPosition, childPosition)
+					.toString()+"   "+getChildPrice(groupPosition, childPosition)
+					.toString());
 			return convertView;
 		}
 
 		private void updateContent(int groupPosition, int childPosition) {
+			View displayText = null;
 			// TODO Auto-generated method stub
 			displayText.setVisibility(View.INVISIBLE);
+			View editDisplayText = null;
 			editDisplayText.setVisibility(View.VISIBLE);
 
 			editDisplayText.setFocusable(true);
 
-			editDisplayText.setSelection(editDisplayText.length());
+			//editDisplayText.setSelection(editDisplayText.length());
 			((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
 					.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 			editDisplayText.requestFocus();
@@ -381,7 +395,7 @@ public class ShoppingListActivity extends Activity {
 			//data = editDisplayText.getText().toString();
 			//System.out.println("===="+data);
 			try {
-				updateJsonFile(fname, editDisplayText.getText().toString(), groupPosition, childPosition);
+				updateJsonFile(fname,"string", groupPosition, childPosition);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
