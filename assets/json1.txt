@@ -1,0 +1,31 @@
+{"storeName":
+	{"Superstore":[	
+		{
+			"id" : "001",
+			"name" : "BANANAS",
+			"price" : "$1.50/kg",
+			"flag":"0"
+		},
+		{
+			"id" : "002",
+			"name" : "LAMB SONLESS LEG",
+			"price" : "22.40",
+			"flag":"1"
+		}
+	],
+	 "Walmart":[	
+		{
+			"id" : "1003",
+			"name" : "ROUND ROAST",
+			"price" : "18 .88",
+			"flag":"1"
+		},
+		{
+			"id" : "1004",
+			"name" : "ZUCCHINI GREEN",
+			"price" : "$3 .24/kg",
+			"flag":"1"
+		}
+	]
+	}
+}

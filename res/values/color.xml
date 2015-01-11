@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="translucent">#00000000</color> 
+    <color name="bg_color">#f5f6f7</color><!-- 背景色 -->
+    
+</resources>

@@ -1,0 +1,111 @@
+{"storeName":
+	{"Superstore":[	
+		{
+			"id" : "001",
+			"name" : "BANANAS",
+			"price" : "$1.50/kg"
+		},
+		{
+			"id" : "002",
+			"name" : "LAMB SONLESS LEG",
+			"price" : "22.40"
+		},
+		{
+			"id" : "003",
+			"name" : "ROUND ROAST",
+			"price" : "18 .88"
+		},
+		{
+			"id" : "004",
+			"name" : "ZUCCHINI GREEN",
+			"price" : "$3 .24/kg"
+		},
+		{
+			"id" : "005",
+			"name" : "BANANAS",
+			"price" : "$1.50/kg"
+		},
+		{
+			"id" : "006",
+			"name" : "LAMB SONLESS LEG",
+			"price" : "22.40"
+		},
+		{
+			"id" : "007",
+			"name" : "ROUND ROAST",
+			"price" : "18 .88"
+		},
+		{
+			"id" : "008",
+			"name" : "ZUCCHINI GREEN",
+			"price" : "$3 .24/kg"
+		}
+	],
+	 "Walmart":[	
+		{
+			"id" : "1001",
+			"name" : "BANANAS",
+			"price" : "$1.50/kg"
+		},
+		{
+			"id" : "1002",
+			"name" : "LAMB SONLESS LEG",
+			"price" : "22.40"
+		},
+		{
+			"id" : "1003",
+			"name" : "ROUND ROAST",
+			"price" : "18 .88"
+		},
+		{
+			"id" : "1004",
+			"name" : "ZUCCHINI GREEN",
+			"price" : "$3 .24/kg"
+		}
+	],
+	"Sobeys":[	
+		{
+			"id" : "11001",
+			"name" : "BANANAS",
+			"price" : "$1.50/kg"
+		},
+		{
+			"id" : "11002",
+			"name" : "LAMB SONLESS LEG",
+			"price" : "22.40"
+		},
+		{
+			"id" : "11003",
+			"name" : "ROUND ROAST",
+			"price" : "18 .88"
+		},
+		{
+			"id" : "11004",
+			"name" : "ZUCCHINI GREEN",
+			"price" : "$3 .24/kg"
+		}
+	],
+	"Safeway":[	
+		{
+			"id" : "21001",
+			"name" : "BANANAS",
+			"price" : "$1.50/kg"
+		},
+		{
+			"id" : "21002",
+			"name" : "LAMB SONLESS LEG",
+			"price" : "22.40"
+		},
+		{
+			"id" : "21003",
+			"name" : "ROUND ROAST",
+			"price" : "18 .88"
+		},
+		{
+			"id" : "21004",
+			"name" : "ZUCCHINI GREEN",
+			"price" : "$3 .24/kg"
+		}
+	]
+	}
+}
