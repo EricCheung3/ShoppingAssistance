@@ -46,7 +46,8 @@
            android:layout_height="wrap_content"   
           android:imeOptions="actionDone"
            android:maxLength="20"  
-           android:singleLine="true"/>
+           android:singleLine="true"
+           android:text="TestTest"/>
         <TextView
             android:id="@+id/displayText"
             android:layout_width="wrap_content"
