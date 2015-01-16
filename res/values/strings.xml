@@ -2,6 +2,6 @@
 <resources>
 
     <string name="hello">Hello World, UI_Test_ExListViewActivity!</string>
-    <string name="app_name">ShoppingAssistance</string>
+    <string name="app_name">PriceTimes</string>
 
 </resources>

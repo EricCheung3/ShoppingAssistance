@@ -6,16 +6,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import com.exlistview.R;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -84,8 +78,9 @@ public class CropPictureActivity extends Activity implements OnClickListener {
 					// use system time as photo name
 					SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 					filename = format.format(new Date(System.currentTimeMillis()));
-					File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+					File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 					File outputImage = new File(path, filename + ".jpg");
+					System.out.println(outputImage.toString());
 					try {
 						if (outputImage.exists()) {
 							outputImage.delete();
@@ -98,6 +93,8 @@ public class CropPictureActivity extends Activity implements OnClickListener {
 					// start capture picture
 					imageUri = Uri.fromFile(outputImage);
 					Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
+					//intentFromCapture.addCategory(Intent.CATEGORY_DEFAULT);
+					// 指定拍摄照片存储路径
 					intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
 					startActivityForResult(intentFromCapture,TAKE_CAMERA_REQUEST_CODE);
 				}else{

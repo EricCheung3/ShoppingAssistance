@@ -1,76 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-	<!--  -->
+
+    <!--  -->
+
     <LinearLayout
         android:id="@+id/pop_layout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:background="@drawable/pop"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/listtext"
+        <ListView
+            android:id="@+id/listview"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@drawable/walmart"
-            android:text="Apple1 20%off"
-            android:textColor="#ff0000"
-            android:textSize="30dp" />
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/listtext1"
+        <RelativeLayout
+            android:id="@+id/layout_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@drawable/walmart"
-            android:text="Apple2 19%off"
-            android:textColor="#ff0000"
-            android:textSize="30dp" />
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/btn_take_photo"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="5dip"
-            android:text="test button"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:text="Add"
+                android:textColor="#ffff00"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn_pick_photo"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="5dip"
-            android:text="test button"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginTop="5dip"
-            android:text="test button"
-            android:textColor="#ffffff"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-        <!-- android:background="@drawable/btn_style_alert_dialog_cancel" -->
+            <Button
+                android:id="@+id/btn_done"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:text="Done"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

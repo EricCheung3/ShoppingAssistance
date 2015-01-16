@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.exlistview.R;
-
 public class MainActivity extends Activity implements OnClickListener {
 
 	// button list

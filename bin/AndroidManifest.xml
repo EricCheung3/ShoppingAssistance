@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.exlistview"
+    package="com.shop"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="19" />
+        />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -23,13 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.shop.ShoppingListActivity" />
+        <activity
+            android:name="com.shop.ShoppingListActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.shop.CropPictureActivity" />
-        
-        <activity android:name="com.shop.SelectPicPopupWindow" 
-            android:theme="@style/MyDialogStyleBottom" /> 
-        
+        <activity android:name="com.shop.DiscountActivity" />
+        <activity android:name="com.shop.MyExpandableListAdapter" 
+           android:windowSoftInputMode="adjustPan" /> />
+        <activity
+            android:name="com.shop.SelectPicPopupWindow"
+            android:theme="@style/MyDialogStyleBottom" />
     </application>
 
 </manifest>
