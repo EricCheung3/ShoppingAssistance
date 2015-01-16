@@ -37,7 +37,7 @@ public class ShoppingListActivity extends Activity {
 
 	public List<Map<String, String>> groupData = new ArrayList<Map<String, String>>();
 	public List<List<Map<String, String>>> childDataList = new ArrayList<List<Map<String, String>>>();
-	//public JSONObject childDataList1 = new JSONObject();
+	// public JSONObject childDataList1 = new JSONObject();
 	public JSONArray addItem = new JSONArray();
 	public final String[] storeName = { "Superstore", "Walmart", "Sobeys",
 			"Safeway" };
@@ -55,6 +55,7 @@ public class ShoppingListActivity extends Activity {
 	private TextView disPlayText;
 	ImageView childImageView;
 	Handler handler;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class ShoppingListActivity extends Activity {
 		myExpandableListView.setAdapter(myExpandableListAdapter);
 		// clean the groupIndicator , seg-line
 		myExpandableListView.setGroupIndicator(null);// myExpandableListView.setDivider(null);
-		
+
 		// Expand event and Collapse event of Group
 		myExpandableListView
 				.setOnGroupExpandListener(new OnGroupExpandListener() {
@@ -100,9 +101,10 @@ public class ShoppingListActivity extends Activity {
 					public boolean onChildClick(ExpandableListView parent,
 							View v, int groupPosition, int childPosition,
 							long id) {
-						
+
 						editProductName(v, groupPosition, childPosition);
-						childImageView = (ImageView) v.findViewById(R.id.child_delete_icon); 
+						childImageView = (ImageView) v
+								.findViewById(R.id.child_delete_icon);
 						deleteItem();
 						return false;
 					}
@@ -113,41 +115,42 @@ public class ShoppingListActivity extends Activity {
 	protected void deleteItem() {
 		// TODO Auto-generated method stub
 		childImageView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				System.out.println("image");
 				new AlertDialog.Builder(v.getContext())
-				.setMessage("Are you sure to delete this item?")
-				.setTitle("DELETE ITEM")
-				.setIcon(android.R.drawable.ic_delete)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
+						.setMessage("Are you sure to delete this item?")
+						.setTitle("DELETE ITEM")
+						.setIcon(android.R.drawable.ic_delete)
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// TODO Auto-generated method stub
-							}
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
+									}
 
-						})
-				.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								//nothing
-							}
-						}).create().show();
+								})
+						.setNegativeButton("Cancel",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// nothing
+									}
+								}).create().show();
 			}
 		});
 	}
+
 	protected void editProductName(View v, final int groupPosition,
 			final int childPosition) {
-		//fuck!!! 你妹的， 老子搞了两天了才勉强可以成功
+		// fuck!!! 你妹的， 老子搞了两天了才勉强可以成功
 		disPlayText = (TextView) v.findViewById(R.id.child_text1);
-		
+
 		editDisplay = new EditText(getApplicationContext());
 		editDisplay.setFocusable(true);
 		editDisplay.setText(disPlayText.getText().toString());
@@ -165,11 +168,13 @@ public class ShoppingListActivity extends Activity {
 								// TODO Auto-generated method stub
 
 								try {// write to file
-									myExpandableListAdapter
-											.updateJsonFile(fname, editDisplay
-													.getText().toString(), groupPosition,	childPosition);
- 
-									disPlayText.setText(editDisplay.getText().toString());
+									myExpandableListAdapter.updateJsonFile(
+											fname, editDisplay.getText()
+													.toString(), groupPosition,
+											childPosition);
+
+									disPlayText.setText(editDisplay.getText()
+											.toString());
 								} catch (JSONException e) {
 									e.printStackTrace();
 								} catch (IOException e) {
@@ -184,7 +189,7 @@ public class ShoppingListActivity extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								//nothing
+								// nothing
 							}
 						}).create().show();
 	}
@@ -232,8 +237,7 @@ public class ShoppingListActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long arg3) {
 
-				TextView productItem = (TextView) v
-						.findViewById(R.id.item_tv);
+				TextView productItem = (TextView) v.findViewById(R.id.item_tv);
 				CheckBox checkBox = (CheckBox) v.findViewById(R.id.item_cb);
 				checkBox.toggle();// change CheckBox status
 				// record selected CheckBox or CheckBoxes
@@ -255,8 +259,8 @@ public class ShoppingListActivity extends Activity {
 						e.printStackTrace();
 					}
 					addItem.put(selectedItem);
-				}				
-			}			
+				}
+			}
 		});
 
 		// add items into json file
@@ -269,13 +273,16 @@ public class ShoppingListActivity extends Activity {
 					// System.out.println("if"+addItem.toString());
 					try {
 						myExpandableListAdapter.addDiscountToJsonFile(fname,
-								groupPosition, addItem);						
+								groupPosition, addItem);
 						// fuck 2, 你妹的，这一个刷新也终于搞定了
-						myExpandableListAdapter.childDataList.clear();						
-						List<List<Map<String, String>>> childDataList000 = myExpandableListAdapter.jsonParse(fname);
-						myExpandableListAdapter.childDataList.addAll(childDataList000);
-						//myExpandableListView.setAdapter(myExpandableListAdapter);
-						((MyExpandableListAdapter) myExpandableListAdapter).notifyDataSetChanged();
+						myExpandableListAdapter.childDataList.clear();
+						List<List<Map<String, String>>> childDataList000 = myExpandableListAdapter
+								.jsonParse(fname);
+						myExpandableListAdapter.childDataList
+								.addAll(childDataList000);
+						// myExpandableListView.setAdapter(myExpandableListAdapter);
+						((MyExpandableListAdapter) myExpandableListAdapter)
+								.notifyDataSetChanged();
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -284,8 +291,8 @@ public class ShoppingListActivity extends Activity {
 						e.printStackTrace();
 					}
 				}
-				popupWindow1.dismiss();
-				popupWindow1 = null;
+				//popupWindow1.dismiss();
+				//popupWindow1 = null;
 				addItem = new JSONArray();
 
 			}

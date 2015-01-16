@@ -10,9 +10,9 @@ import android.widget.Button;
 public class MainActivity extends Activity implements OnClickListener {
 
 	// button list
-	private Button shopList;
-	//private Button editShopList;
-	private Button snapCrop;
+	private Button btn_shopList;
+	private Button btn_about;
+	private Button btn_snapCrop;
 
 
 	@Override
@@ -20,14 +20,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		// display shopping list
-		shopList = (Button) findViewById(R.id.shoppingList);
-		shopList.setOnClickListener(this);
-		// edit shopping list
-//		editShopList = (Button) findViewById(R.id.editShopping);
-//		editShopList.setOnClickListener(this);
+		btn_shopList = (Button) findViewById(R.id.btn_shoppingList);		
 		// snap and crop picture
-		snapCrop = (Button) findViewById(R.id.snapCrop);
-		snapCrop.setOnClickListener(this);
+		btn_snapCrop = (Button) findViewById(R.id.btn_snapCrop);		
+		// edit shopping list
+		btn_about = (Button) findViewById(R.id.btn_about);
+		
+		// Listener event
+		btn_shopList.setOnClickListener(this);
+		btn_snapCrop.setOnClickListener(this);
+		btn_about.setOnClickListener(this);
 		
 	}
 
@@ -35,18 +37,18 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		Intent intent;
 		switch (v.getId()) {
-		case R.id.shoppingList:
+		case R.id.btn_shoppingList:
 			intent = new Intent(this, ShoppingListActivity.class);
 			startActivity(intent);
 			intent = null;
 			break;
-//		case R.id.editShopping: 
-//			intent = new Intent(this, CropPictureActivity.class);
-//			startActivity(intent);
-//			intent = null;
-//			break;
-		case R.id.snapCrop:
+		case R.id.btn_snapCrop:
 			intent = new Intent(this, CropPictureActivity.class);
+			startActivity(intent);
+			intent = null;
+			break;
+			case R.id.btn_about: 
+			intent = new Intent(this, AboutUsActivity.class);
 			startActivity(intent);
 			intent = null;
 			break;

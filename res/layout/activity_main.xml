@@ -1,28 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/default_bg"
+    android:orientation="vertical"
     tools:ignore="MergeRootFrame" >
 
     <Button
-        android:id="@+id/shoppingList"
+        android:id="@+id/btn_shoppingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:text="Check Shopping List" />
 
     <Button
-        android:id="@+id/editShopping"
+        android:id="@+id/btn_snapCrop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Shopping List" />
+        android:layout_marginTop="20dp"
+        android:text="Snap and Crop receipt" />
 
     <Button
-        android:id="@+id/snapCrop"
+        android:id="@+id/btn_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Snap and Crop receipt" />
+        android:layout_marginTop="20dp"
+        android:text="About Us" />
 
 </LinearLayout>

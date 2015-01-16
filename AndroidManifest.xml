@@ -4,9 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="9"
-        />
+    <uses-sdk android:minSdkVersion="9" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -28,8 +26,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.shop.CropPictureActivity" />
         <activity android:name="com.shop.DiscountActivity" />
-        <activity android:name="com.shop.MyExpandableListAdapter" 
-           android:windowSoftInputMode="adjustPan" /> />
+        <activity android:name="com.shop.AboutUsActivity" />
+        <activity
+            android:name="com.shop.MyExpandableListAdapter"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.shop.SelectPicPopupWindow"
             android:theme="@style/MyDialogStyleBottom" />

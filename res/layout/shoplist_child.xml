@@ -4,30 +4,31 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
- 
-	<RelativeLayout android:id="@+id/relativelayout_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"   >
-            <TextView
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip" >
+
+        <TextView
             android:id="@+id/child_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:textSize="20dip" 
+            android:lines="1"
             android:paddingTop="10dip"
-            android:lines="1"/>
-            
-             <ImageView android:id="@+id/child_delete_icon"               
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content" 
-                 android:layout_alignParentRight="true"
-                 android:layout_marginRight="15dip"
-                 android:paddingTop="10dip"
-                 android:paddingBottom="10dip"/>                    
-        </RelativeLayout> 
+            android:textSize="20dip" />
 
-
+        <ImageView
+            android:id="@+id/child_delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dip"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip" />
+    </RelativeLayout>
 
 </LinearLayout>

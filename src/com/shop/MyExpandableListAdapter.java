@@ -59,7 +59,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 			storeMap.put("storeName", storeName[i]);
 			groupData.add(storeMap);
 		}	
-		//initDatafromAssetsToInternal();
+		initDatafromAssetsToInternal();
 		// parse json file
 		childDataList = jsonParse(fname);
 		return childDataList;
